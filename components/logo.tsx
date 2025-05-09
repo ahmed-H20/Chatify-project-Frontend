@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { ThemeToggle } from "@/components/theme-toggle"
+// import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function Logo() {
   return (
@@ -21,9 +21,9 @@ export default function Logo() {
         <p>Your personal messages are end-to-end encrypted</p>
         <span className="ml-2">🔒</span>
       </div>
-      <div className="mt-6">
+      {/* <div className="mt-6">
         <ThemeToggle />
-      </div>
+      </div> */}
     </div>
   )
 }
