@@ -3,8 +3,28 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
+import { useForm, SubmitHandler } from "react-hook-form"
+
+type Inputs = {
+  example: string
+  exampleRequired: string
+}
 
 export default function LoginPage() {
+
+  // React Hook Form setup
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data)
+  }
+
+
   return (
     <div className="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
       <div className="flex flex-col md:flex-row">
