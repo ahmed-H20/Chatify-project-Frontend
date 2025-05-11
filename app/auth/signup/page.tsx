@@ -1,10 +1,32 @@
+'use client';
+
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
+import { SubmitHandler, useForm } from "react-hook-form"
 
 export default function SignUpPage() {
+  // React Hook Form setup
+  type Inputs = {
+  name: string;
+  phone: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>()
+
+  const onSubmit = (data: Inputs) => {
+    console.log(data)
+  }
+
   return (
     <div className="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
       <div className="flex flex-col md:flex-row">
@@ -24,25 +46,27 @@ export default function SignUpPage() {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Sign up</h1>
             <p className="text-gray-600 dark:text-gray-300 mb-6">to creat account</p>
 
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <div>
-                <Input type="text" placeholder="User name" className="w-full border-gray-300 dark:border-gray-600" />
+                <Input {...register("name", { required: true })} type="text" placeholder="User name" className="w-full border-gray-300 dark:border-gray-600" />
               </div>
               <div>
                 <Input
+                  {...register("phone", { required: true })}
                   type="tel"
                   placeholder="Your phone"
                   className="w-full border-gray-300 dark:border-gray-600 border-purple-500 ring-2 ring-purple-500"
                 />
               </div>
               <div>
-                <Input type="email" placeholder="Your email" className="w-full border-gray-300 dark:border-gray-600" />
+                <Input {...register("email", { required: true })} type="email" placeholder="Your email" className="w-full border-gray-300 dark:border-gray-600" />
               </div>
               <div>
-                <Input type="password" placeholder="Password" className="w-full border-gray-300 dark:border-gray-600" />
+                <Input {...register("password", { required: true })} type="password" placeholder="Password" className="w-full border-gray-300 dark:border-gray-600" />
               </div>
               <div>
                 <Input
+                  {...register("confirmPassword", { required: true })}
                   type="password"
                   placeholder="confirm Password"
                   className="w-full border-gray-300 dark:border-gray-600"

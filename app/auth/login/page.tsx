@@ -1,13 +1,14 @@
+'use client';
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
-import { useForm, SubmitHandler } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 
 type Inputs = {
-  example: string
-  exampleRequired: string
+  email: string;
+  password: string;
 }
 
 export default function LoginPage() {
@@ -16,11 +17,10 @@ export default function LoginPage() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm()
+  } = useForm<Inputs>()
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit = (data: Inputs) => {
     console.log(data)
   }
 
@@ -44,12 +44,13 @@ export default function LoginPage() {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Log in</h1>
             <p className="text-gray-600 dark:text-gray-300 mb-6">to your account</p>
 
-            <form className="space-y-4">
+            {/* Form */}
+            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <div>
-                <Input type="email" placeholder="Email" className="w-full border-gray-300 dark:border-gray-600" />
+                <Input {...register("email", { required: true })} type="email" placeholder="Email" className="w-full border-gray-300 dark:border-gray-600" />
               </div>
               <div>
-                <Input type="password" placeholder="Password" className="w-full border-gray-300 dark:border-gray-600" />
+                <Input {...register("password", { required: true })} type="password" placeholder="Password" className="w-full border-gray-300 dark:border-gray-600" />
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
