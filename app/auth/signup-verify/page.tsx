@@ -1,11 +1,22 @@
-"use client";
-import type React from "react"
-import { useState } from "react"
+"use client"
+import React from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
+
 
 export default function VerifyPage() {
   const [code, setCode] = useState(["", "", "", ""])
+  const [email, setEmail] = useState("")
+  const router = useRouter()
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email")    
+    if (storedEmail) {
+      setEmail(storedEmail)
+    }      
+    }, [])
 
   const handleChange = (index: number, value: string) => {
     if (value.length > 1) return
@@ -29,11 +40,42 @@ export default function VerifyPage() {
     }
   }
 
+   const handleConfirm = async() => {
+    try {
+      const res = await fetch("https://chat-app-pi-livid-13.vercel.app/api/v1/auth/verify-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ 
+        email: email,
+        verificationCode: code,
+       }),
+    })
+    if (!res.ok) {
+      const error = await res.json()
+      throw new Error(error.message || "Verification failed")
+    }
+
+    const result = await res.json()
+
+    if (result.token) {
+      localStorage.setItem("token", result.token)
+    }
+    router.push("/")
+    console.log("Verification successful:", result)
+    return result
+  } catch (error: any) {
+    console.error("Verification error:", error.message)
+    throw error
+  }
+  }
+
   return (
     <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
       <div className="text-center mb-8">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-          Please check your email and enter the code
+          Please check your email and enter the code to verify your account
         </h1>
       </div>
 
@@ -52,7 +94,7 @@ export default function VerifyPage() {
         ))}
       </div>
 
-      <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-md mb-6">
+      <Button onClick={handleConfirm} type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-md mb-6">
         Confirm
       </Button>
 

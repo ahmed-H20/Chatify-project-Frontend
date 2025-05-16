@@ -8,14 +8,14 @@ export default function ChatPage({ params }: { params: { id: string } }) {
       name: "My friend",
       message: "Lorem ipsum dolor sit amet...",
       time: "5:15PM",
-      avatar: "/Chatify_Logo.svg?height=48&width=48",
+      avatar: "/icons/Ai-icon.png",
     },
     {
       id: "2",
       name: "Name",
       message: "Lorem ipsum dolor sit amet...",
       time: "4:20PM",
-      avatar: "/Chatify_Logo.svg?height=48&width=48",
+      avatar: "/icons/user.png",
       unread: true,
     },
     {
@@ -34,7 +34,7 @@ export default function ChatPage({ params }: { params: { id: string } }) {
     },
     {
       id: "5",
-      name: "Name",
+      name: "Ahhed",
       message: "Lorem ipsum dolor sit amet...",
       time: "5:54PM",
       avatar: "/Chatify_Logo.svg?height=48&width=48",
@@ -78,6 +78,13 @@ export default function ChatPage({ params }: { params: { id: string } }) {
       sent: true,
       time: "8:58PM",
       status: "read" as const,
+    },
+     {
+      id: "4",
+      content:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
+      sent: false,
+      time: "8:56PM",
     },
   ]
 

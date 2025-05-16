@@ -3,13 +3,12 @@ import Image from "next/image"
 
 export default function Logo() {
   return (
-    <div className="flex flex-col items-center">
-      <div className="relative w-24 h-24">
+    <div className="flex flex-col items-center">      
+      <div className="relative w-48 h-48">
         <Image
-          src="/Chatify_Logo.svg?height=96&width=96"
+          src="/Chatify_Logo.svg"
           alt="Chatify Logo"
-          width={96}
-          height={96}
+          fill
           className="object-contain"
         />
       </div>

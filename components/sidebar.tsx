@@ -33,11 +33,11 @@ export default function Sidebar() {
   ]
 
   return (
-    <div className="flex flex-col items-center w-16 h-full bg-gray-100 dark:bg-black border-r border-gray-200 dark:border-gray-800">
+    <div className="flex flex-col items-center w-16 h-full dark:bg-black dark:border-gray-800">
       <div className="flex items-center justify-center h-16 w-16">
-        <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs">
-          <MessageCircle size={20} />
-        </div>
+        {/* <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white text-xs">
+          <img src="/Chatify_Logo.svg" alt="" />
+        </div> */}
       </div>
       <div className="flex-1 flex flex-col items-center gap-6 py-8">
         {routes.map((route, index) => (

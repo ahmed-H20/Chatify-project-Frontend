@@ -41,8 +41,6 @@ export default function ChatView({ chatId, contact, messages: initialMessages }:
       time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       status: "sent",
     }
-
-    setMessages([...messages, message])
     setNewMessage("")
   }
 
@@ -52,7 +50,7 @@ export default function ChatView({ chatId, contact, messages: initialMessages }:
         <div className="flex items-center">
           <Avatar className="h-10 w-10">
             {contact.avatar ? (
-              <AvatarImage src={contact.avatar || "/Chatify_Logo.svg"} alt={contact.name} />
+              <AvatarImage src={`${contact.avatar}?t=${Date.now()}` || "icons/user.png"} alt={contact.name} />
             ) : (
               <AvatarFallback>{contact.name.charAt(0)}</AvatarFallback>
             )}

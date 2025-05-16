@@ -6,13 +6,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 
 export default function SignUpPage() {
   // React Hook Form setup
   type Inputs = {
   name: string;
-  phone: string;
   email: string;
+  phone: string;
   password: string;
   confirmPassword: string;
   }
@@ -22,10 +23,34 @@ export default function SignUpPage() {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>()
+  const router = useRouter()
 
-  const onSubmit = (data: Inputs) => {
-    console.log(data)
+  const onSubmit = async(data: Inputs) => {
+    try {
+    const res = await fetch("https://chat-app-pi-livid-13.vercel.app/api/v1/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      console.log("Invalid credentials");
+    }
+    
+    const result = await res.json();
+    console.log(result);
+    localStorage.setItem("email", data.email)
+
+    router.push("/auth/signup-verify")
+  } catch (error) {
+    console.error("Signup failed:", error);
+    alert("Signup failed. Please try again.");
   }
+    
+  }
+  
 
   return (
     <div className="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">

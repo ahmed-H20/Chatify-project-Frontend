@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 
 type Inputs = {
   email: string;
@@ -13,6 +14,7 @@ type Inputs = {
 
 export default function LoginPage() {
 
+  const router = useRouter();
   // React Hook Form setup
   const {
     register,
@@ -20,9 +22,31 @@ export default function LoginPage() {
     formState: { errors },
   } = useForm<Inputs>()
 
-  const onSubmit = (data: Inputs) => {
-    console.log(data)
+  const onSubmit = async (data: Inputs) => {
+     try {
+    const res = await fetch("https://chat-app-pi-livid-13.vercel.app/api/v1/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      throw new Error("Invalid credentials");
+    }
+    
+    const result = await res.json();
+    console.log(result);
+    const token = result.token;
+    localStorage.setItem("token", token);
+
+    router.push("/"); 
+  } catch (error) {
+    console.error("Login failed:", error);
+    alert("Login failed. Please try again.");
   }
+}
 
 
   return (
