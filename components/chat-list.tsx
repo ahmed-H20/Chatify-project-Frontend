@@ -37,7 +37,7 @@ export default function ChatList({ chats }: ChatListProps) {
           </div>
         </div>
        <Tabs defaultValue="all" className="px-4 pt-4 bg-white">
-        <TabsList className="grid grid-cols-4 h-9 gap-3 rounded-lg bg-white p-0 shadow-none">
+        <TabsList className="grid grid-cols-4 h-9 gap-3 rounded-2xl bg-white p-0 shadow-none">
           <TabsTrigger
             value="all"
             className="text-xs text-black data-[state=active]:bg-[#341F97] data-[state=active]:text-white data-[state=active]:rounded-md"
