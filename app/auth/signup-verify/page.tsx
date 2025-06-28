@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation"
 
 
 export default function VerifyPage() {
-  const [code, setCode] = useState(["", "", "", ""])
+  const [code, setCode] = useState(["", "", "", "", "", ""])
   const [email, setEmail] = useState("")
   const router = useRouter()
 
@@ -26,7 +26,7 @@ export default function VerifyPage() {
     setCode(newCode)
 
     // Auto-focus next input
-    if (value && index < 3) {
+    if (value && index < 5) {
       const nextInput = document.getElementById(`code-${index + 1}`)
       if (nextInput) nextInput.focus()
     }
@@ -40,36 +40,80 @@ export default function VerifyPage() {
     }
   }
 
-   const handleConfirm = async() => {
-    try {
-      const res = await fetch("https://chat-app-pi-livid-13.vercel.app/api/v1/auth/verify-email", {
+  //  const handleConfirm = async() => {
+  //   try {      
+  //     const res = await fetch("https://chat-app-pi-livid-13.vercel.app/api/v1/auth/verify-email", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       verificationCode: code,
+  //      }),
+  //   })
+  //   if (!res.ok) {
+  //     const error = await res.json()
+  //     throw new Error(error.message || "Verification failed")
+  //   }
+
+  //   const result = await res.json()
+
+  //   if (result.token) {
+  //     localStorage.setItem("token", result.token)
+  //   }
+
+    
+    
+  //   console.log("Verification successful:", result)
+  //   return result
+  // } catch (error: any) {
+  //   console.error("Verification error:", error.message)
+  //   throw error
+  // }
+  // }
+
+
+  const handleConfirm = async () => {
+  // Join the code array into a single string
+  const verificationCode = code.join("");
+
+  // Check if the code is exactly 6 digits
+  if (verificationCode.length !== 6 || !/^\d{6}$/.test(verificationCode)) {
+    alert("Please enter a valid 6-digit verification code");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/api/v1/auth/verify-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ 
-        email: email,
-        verificationCode: code,
-       }),
-    })
+        verificationCode,
+        email, // Include the email in the request 
+      }), 
+    });
+
     if (!res.ok) {
-      const error = await res.json()
-      throw new Error(error.message || "Verification failed")
+      const error = await res.json();
+      throw new Error(error.message || "Verification failed");
     }
 
-    const result = await res.json()
+    const result = await res.json();
 
     if (result.token) {
-      localStorage.setItem("token", result.token)
+      localStorage.setItem("token", result.token);
     }
-    router.push("/")
-    console.log("Verification successful:", result)
-    return result
+
+    console.log("Verification successful:", result);
+    router.push("/dashboard"); // Or wherever you want to redirect after success
   } catch (error: any) {
-    console.error("Verification error:", error.message)
-    throw error
+    console.error("Verification error:", error.message);
+    alert(error.message || "Verification failed. Please try again.");
   }
-  }
+};
+
 
   return (
     <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
@@ -79,7 +123,7 @@ export default function VerifyPage() {
         </h1>
       </div>
 
-      <div className="flex justify-center space-x-4 mb-8">
+      <div className="flex justify-center space-x-6 mb-8">
         {code.map((digit, index) => (
           <input
             key={index}

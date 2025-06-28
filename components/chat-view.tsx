@@ -24,10 +24,11 @@ interface ChatViewProps {
     avatar?: string
     online?: boolean
   }
-  messages: Message[]
+  messagesId: Message[]
 }
 
-export default function ChatView({ chatId, contact, messages: initialMessages }: ChatViewProps) {
+export default function ChatView({ chatId, contact, messagesId: initialMessages }: ChatViewProps) {
+  console.log("ChatView rendered with chatId:", chatId, "contact:", contact)
   const [messages, setMessages] = useState<Message[]>(initialMessages)
   const [newMessage, setNewMessage] = useState("")
 
@@ -43,6 +44,8 @@ export default function ChatView({ chatId, contact, messages: initialMessages }:
     }
     setNewMessage("")
   }
+
+  
 
   return (
     <div className="flex flex-col h-full bg-white dark:bg-black">

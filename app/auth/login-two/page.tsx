@@ -6,14 +6,17 @@ import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
+import { useEffect } from "react";
+import { useAuthStore } from "@/store/useAuthStore.js"
+import axios from "axios";
+import Router from "next/router";
 
 type Inputs = {
   email: string;
   password: string;
 }
 
-export default function LoginPage() {
-
+export default function LoginPage() {  
   const router = useRouter();
   // React Hook Form setup
   const {
@@ -23,33 +26,124 @@ export default function LoginPage() {
   } = useForm<Inputs>()
 
   const onSubmit = async (data: Inputs) => {
-     try {
-    const res = await fetch("https://chat-app-pi-livid-13.vercel.app/api/v1/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data),
-    });
+        try {
+          const res = await axios.post("http://localhost:5001/api/auth/login", data, {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
 
-    if (!res.ok) {
-      throw new Error("Invalid credentials");
-    }
+          const token = res.data.token;
+          localStorage.setItem("token", token);
+
+          router.push("/");
+        } catch (error) {
+          console.error("Login failed:", error);
+          alert("Login failed. Please try again.");
+        }  
+  //   try {
+  //   const res = await axios.post("http://localhost:5001/api/auth/login", {
+  //     method: "POST",
+  //     withCredentials: true,
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify(data),
+  //    });
+
+  //    if (!res.ok) {
+  //    throw new Error("Invalid credentials");
+  //    }
     
-    const result = await res.json();
-    console.log(result);
-    const token = result.token;
-    localStorage.setItem("token", token);
+  //    const result = await res.json();
+  //    console.log(result);
+  //    const token = result.token;
+  //    localStorage.setItem("token", token);
 
-    router.push("/"); 
-  } catch (error) {
-    console.error("Login failed:", error);
-    alert("Login failed. Please try again.");
-  }
-}
+  //    router.push("/"); 
+  //  } catch (error) {
+  //    console.error("Login failed:", error);
+  //    alert("Login failed. Please try again.");
+  //  }
+  // }
+
+//   try {
+//   const res = await axios.post("http://localhost:5001/api/auth/login", data, {
+//     withCredentials: true,
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+
+//   const token = res.data.token;
+//   localStorage.setItem("token", token);
+
+//   router.push("/");
+// } catch (error) {
+//   console.error("Login failed:", error);
+//   alert("Login failed. Please try again.");
+
+  //  try {
+  //   const res = await axios.post("http://localhost:5001/api/auth/login", data, {
+  //     withCredentials: true, 
+  //   });
+
+  //   const result = res.data;
+  //   console.log(result);
+
+  //   const token = result.token;
+  //   if (token) {
+  //     localStorage.setItem("token", token);
+  //   }
+
+  //   router.push("/");
+  // } catch (error: any) {
+  //   console.error("Login failed:", error.response?.data || error.message);
+  //   alert("Login failed. Please try again.");
+  // }
+
+  // }
+ 
+
+//   try {
+//     const res = await axios.post(
+//       "http://localhost:5001/api/auth/login",
+//       data,
+//       {
+//         withCredentials: true, // ✨ مهم جدًا
+//         headers: {
+//           "Content-Type": "application/json"
+//         }
+//       }
+//     );
+
+//     console.log("Login success:", res.data);
+
+//     router.push("/");
+
+//   } catch (error) {
+//     console.error("Login failed:", error);
+//     alert("Login failed. Please try again.");
+//   }
+// }
 
 
-  return (
+// const onSubmit = async (data: Inputs) => {
+//   const login = useAuthStore.getState().login;
+
+//   try {
+//     await login(data); 
+//     router.push("/");
+//   } catch (error) {
+//     console.error("Login failed:", error);
+//   }
+// };
+
+    }
+
+
+ return (
     <div className="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
       <div className="flex flex-col md:flex-row">
         <div className="w-full md:w-1/2 bg-blue-50 dark:bg-gray-700 p-8 flex items-center justify-center">
@@ -128,7 +222,7 @@ export default function LoginPage() {
 
             <div className="mt-6 text-center">
               <p className="text-gray-600 dark:text-gray-300">
-                Don.t have an account?{" "}
+                Don't have an account?{" "}
                 <Link href="/auth/signup" className="text-indigo-600 hover:text-indigo-500 font-medium">
                   Sign up
                 </Link>
