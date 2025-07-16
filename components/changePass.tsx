@@ -23,7 +23,7 @@ export default function ChangePasswordPage() {
     try {
       setLoading(true)
       const token = localStorage.getItem("token") // لو بتستخدم توكن في localStorage
-      const res = await fetch("http://localhost:5000/api/v1/auth/change-password", {
+      const res = await fetch("https://chatify-project-backend.vercel.app/api/v1/auth/change-password", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

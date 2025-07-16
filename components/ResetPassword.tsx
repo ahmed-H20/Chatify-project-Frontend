@@ -32,7 +32,7 @@ export default function ResetPasswordPage() {
 
     try {
       setLoading(true)
-      const res = await fetch("http://localhost:5000/api/v1/auth/resetPassword", {
+      const res = await fetch("https://chatify-project-backend.vercel.app/api/v1/auth/resetPassword", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, newPassword: password }),

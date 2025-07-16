@@ -36,7 +36,7 @@
 //         return;
 //     }
 //     setLoading(true);
-//     const res = await fetch("http://localhost:5000/api/v1/story/status", {
+//     const res = await fetch("https://chatify-project-backend.vercel.app/api/v1/story/status", {
 //       headers: { Authorization: `Bearer ${token}` },
 //     });
 //     if (res.ok) {
@@ -174,7 +174,7 @@
 //             return;
 //         }
         
-//         const res = await fetch("http://localhost:5000/api/v1/story/status", {
+//         const res = await fetch("https://chatify-project-backend.vercel.app/api/v1/story/status", {
 //         headers: { Authorization: `Bearer ${token}` },
 //         });
 //         if (res.ok) {
@@ -186,7 +186,7 @@
 
 //   const deleteStory = async (id: string) => {
 //     try {
-//       await fetch(`http://localhost:5000/api/v1/story/deleteStory/${id}`, {
+//       await fetch(`https://chatify-project-backend.vercel.app/api/v1/story/deleteStory/${id}`, {
 //         method: "DELETE",
 //         headers: {
 //           Authorization: `Bearer ${token}`,
@@ -283,7 +283,7 @@ export default function MyStatusPage() {
 
   const fetchMyStories = async () => {
     if (!token) return;
-    const res = await fetch("http://localhost:5000/api/v1/story/status", {
+    const res = await fetch("https://chatify-project-backend.vercel.app/api/v1/story/status", {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (res.ok) {
@@ -294,7 +294,7 @@ export default function MyStatusPage() {
 
   const deleteStory = async (id: string) => {
     try {
-      await fetch(`http://localhost:5000/api/v1/story/deleteStory/${id}`, {
+      await fetch(`https://chatify-project-backend.vercel.app/api/v1/story/deleteStory/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

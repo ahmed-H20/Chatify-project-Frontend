@@ -42,7 +42,7 @@ export default function VerifyPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/v1/auth/verify-email", {
+      const res = await fetch("https://chatify-project-backend.vercel.app/api/v1/auth/verify-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -75,7 +75,7 @@ export default function VerifyPage() {
 
     try {
       setIsResending(true)
-      const res = await fetch("http://localhost:5000/api/v1/auth/resend-code", {
+      const res = await fetch("https://chatify-project-backend.vercel.app/api/v1/auth/resend-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

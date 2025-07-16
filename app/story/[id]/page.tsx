@@ -17,7 +17,7 @@
 
 //   const getStory = async () => {
 //     try{
-//       const response = await fetch(`http://localhost:5000/api/v1/story/status`);
+//       const response = await fetch(`https://chatify-project-backend.vercel.app/api/v1/story/status`);
 //       if (!response.ok) throw new Error("Network response was not ok");
 //       const data = await response.json();
 //       console.log("Fetched story:", data);
@@ -47,7 +47,7 @@
 //     const getStory = async () => {
 //       try {
 //         console.log("Story ID from params:", params.id); // هيطبع القيمة صح دلوقتي
-//         const response = await fetch(`http://localhost:5000/api/v1/story/user/${params.id}`);
+//         const response = await fetch(`https://chatify-project-backend.vercel.app/api/v1/story/user/${params.id}`);
 //         if (!response.ok) throw new Error("Network response was not ok");
 
 //         const { data } = await response.json();
@@ -96,7 +96,7 @@
 //         const token = localStorage.getItem("token");
 //         console.log("Story ID (User ID):", id);
 
-//         const response = await fetch(`http://localhost:5000/api/v1/story/user/${id}`, {
+//         const response = await fetch(`https://chatify-project-backend.vercel.app/api/v1/story/user/${id}`, {
 //           headers: {
 //             Authorization: `Bearer ${token}`,
 //             "Content-Type": "application/json",
@@ -187,7 +187,7 @@ export default function StoryPage({ params }: { params: Promise<{ id: string }> 
         const token = localStorage.getItem("token");
         console.log("Story ID (User ID):", id);
 
-        const response = await fetch(`http://localhost:5000/api/v1/story/user/${id}`, {
+        const response = await fetch(`https://chatify-project-backend.vercel.app/api/v1/story/user/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

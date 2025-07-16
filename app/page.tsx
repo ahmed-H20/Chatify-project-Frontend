@@ -11,7 +11,7 @@ export default function Home() {
 
   const getChats = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/v1/conversation/allPrivateConversation", {
+      const response = await fetch("https://chatify-project-backend.vercel.app/api/v1/conversation/allPrivateConversation", {
         headers: { Authorization: `Bearer ${token}` },
       }); 
       if (!response.ok) throw new Error("Failed to fetch chats")

@@ -43,7 +43,7 @@ const onSubmit: SubmitHandler<Inputs> = async (data) => {
     // Example: setIsSigningUp(true);
 
     // Send POST request using Fetch API
-    const response = await fetch("http://localhost:5000/api/v1/auth/signup", {
+    const response = await fetch("https://chatify-project-backend.vercel.app/api/v1/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

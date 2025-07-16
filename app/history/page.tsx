@@ -10,7 +10,7 @@
 //   useEffect(() => {
 //   const fetchStories = async () => {
 //     try {
-//       const response = await fetch("http://localhost:5000/api/v1/story/status", {
+//       const response = await fetch("https://chatify-project-backend.vercel.app/api/v1/story/status", {
 //         method: "GET",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export default function HistoryPage() {
 
     const fetchStories = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/v1/story/status", {
+        const response = await fetch("https://chatify-project-backend.vercel.app/api/v1/story/status", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

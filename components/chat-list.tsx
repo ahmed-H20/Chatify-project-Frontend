@@ -57,7 +57,7 @@ export default function ChatList({ chats }: ChatListProps) {
     if (!searchTerm.trim()) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/user/search?query=${searchTerm}`, {
+      const res = await fetch(`https://chatify-project-backend.vercel.app/api/v1/user/search?query=${searchTerm}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -73,7 +73,7 @@ export default function ChatList({ chats }: ChatListProps) {
 
   const handleStartChat = async (userId: string) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/conversation/accessPrivateConversation`, {
+      const res = await fetch(`https://chatify-project-backend.vercel.app/api/v1/conversation/accessPrivateConversation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

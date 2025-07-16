@@ -117,7 +117,7 @@ export default function ChatView({ chatId, contact }: ChatViewProps) {
 
   const fetchMessages = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/conversation/privateConversation/${chatId}`, {
+      const res = await fetch(`https://chatify-project-backend.vercel.app/api/v1/conversation/privateConversation/${chatId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
 
@@ -170,7 +170,7 @@ export default function ChatView({ chatId, contact }: ChatViewProps) {
     if (!newMessage.trim() || !currentUserId.current) return
 
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/message/sendMessage/${contact.id}`, {
+      const res = await fetch(`https://chatify-project-backend.vercel.app/api/v1/message/sendMessage/${contact.id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -208,7 +208,7 @@ export default function ProfileForm() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/v1/user/${userId}`, {
+        const res = await fetch(`https://chatify-project-backend.vercel.app/api/v1/user/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -265,7 +265,7 @@ export default function ProfileForm() {
         imageUrl = cloudData.secure_url;
       }
 
-      const updateRes = await fetch("http://localhost:5000/api/v1/user/update-Profile", {
+      const updateRes = await fetch("https://chatify-project-backend.vercel.app/api/v1/user/update-Profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

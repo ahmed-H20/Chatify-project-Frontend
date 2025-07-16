@@ -33,7 +33,7 @@
 
 //   const getChats = async () => {
 //     try {
-//       const response = await fetch("http://localhost:5000/api/v1/conversation/allPrivateConversation", {
+//       const response = await fetch("https://chatify-project-backend.vercel.app/api/v1/conversation/allPrivateConversation", {
 //         headers: { Authorization: `Bearer ${token}` },
 //       });
 //       if (!response.ok) throw new Error("Failed to fetch chats");
@@ -46,7 +46,7 @@
 
 //   const getConversationData = async (chatId: string) => {
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/v1/conversation/privateConversation/${chatId}`, {
+//       const response = await fetch(`https://chatify-project-backend.vercel.app/api/v1/conversation/privateConversation/${chatId}`, {
 //         headers: { Authorization: `Bearer ${token}` },
 //       });
 
@@ -69,7 +69,7 @@
 
 //   const getContact = async (chatId: string) => {
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/v1/conversation/privateConversation/${chatId}`, {
+//       const response = await fetch(`https://chatify-project-backend.vercel.app/api/v1/conversation/privateConversation/${chatId}`, {
 //         headers: { Authorization: `Bearer ${token}` },
 //       });
 
@@ -184,7 +184,7 @@ export default function ChatPage() {
 
   const getChats = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/v1/conversation/allPrivateConversation", {
+      const response = await fetch("https://chatify-project-backend.vercel.app/api/v1/conversation/allPrivateConversation", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!response.ok) throw new Error("Failed to fetch chats");
@@ -197,7 +197,7 @@ export default function ChatPage() {
 
   const getConversationData = async (chatId: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/v1/conversation/privateConversation/${chatId}`, {
+      const response = await fetch(`https://chatify-project-backend.vercel.app/api/v1/conversation/privateConversation/${chatId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -220,7 +220,7 @@ export default function ChatPage() {
 
   const getContact = async (chatId: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/v1/conversation/privateConversation/${chatId}`, {
+      const response = await fetch(`https://chatify-project-backend.vercel.app/api/v1/conversation/privateConversation/${chatId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
