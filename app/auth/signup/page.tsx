@@ -35,26 +35,6 @@ export default function SignUpPage() {
   };
   
 
-// const onSubmit: SubmitHandler<Inputs> = async (data) => {
-//   console.log("Form submitted:", data);
-//   try {
-//     //  const signupData = {
-//     //   email: data.email,
-//     //   fullName: data.name, 
-//     //   password: data.password,
-//     // };
-//     const signed = await signup(data);
-//     if(!signed) {
-//       alert("Signup failed. Please try again.");
-//       return;
-//     }
-//     router.push("/auth/signup-verify");
-//   } catch (error) {
-//     console.error("Signup failed:", error);
-//     alert("Signup failed. Please try again.");
-//   }
-// };
-
 const onSubmit: SubmitHandler<Inputs> = async (data) => {
   console.log("Form submitted:", data);
 
@@ -81,7 +61,7 @@ const onSubmit: SubmitHandler<Inputs> = async (data) => {
 
     // Get response data
     const resData = await response.json();
-
+    
     // Example: set auth user if needed (simulate set({ authUser: resData }))
     console.log("User signed up:", resData);
 
@@ -110,76 +90,52 @@ const onSubmit: SubmitHandler<Inputs> = async (data) => {
  
   return (
     <>
-    <div className="w-full max-w-4xl bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-      <div className="flex flex-col md:flex-row">
-       <div className="w-full md:w-1/2 bg-blue-50 dark:bg-gray-700 p-8 flex items-center justify-center">
-        <div className="max-w-sm">
-          <Image
-                src="/login-panner.png"
-                alt="Authentication"
-                width={400}
-                height={400}
-                className="object-contain"
-              />
-            </div>
-          </div>
-          <div className="w-full md:w-1/2 p-8">
-            <div className="max-w-md mx-auto">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 text-center">Sign up</h1>
-              <p className="text-gray-600 dark:text-gray-300 mb-6 text-center">to create account</p>
+  <div className="w-full h-screen flex overflow-hidden">
+    {/* Left Side - Fixed Image */}
+    <div className="w-1/2 h-full hidden md:block">
+      <Image
+        src="/login-panner.png"
+        alt="Authentication"
+        width={800}
+        height={800}
+        className="w-full h-full object-cover"
+      />
+    </div>
 
-              <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                  <Input {...register("name", { required: true })} type="text" placeholder="User name" className="w-full border-gray-300 dark:border-gray-600" />
-                </div>
-                <div>
-                  <Input
-                    {...register("phone", { required: true })}
-                    type="tel"
-                    placeholder="Your phone"
-                    className="w-full border-gray-300 dark:border-gray-600 border-purple-500 ring-2 ring-purple-500"
-                  />
-                </div>
-                <div>
-                  <Input {...register("email", { required: true })} type="email" placeholder="Your email" className="w-full border-gray-300 dark:border-gray-600" />
-                </div>
-                <div>
-                  <Input {...register("password", { required: true })} type="password" placeholder="Password" className="w-full border-gray-300 dark:border-gray-600" />
-                </div>
-                <div>
-                  <Input
-                    {...register("confirmPassword", { required: true })}
-                    type="password"
-                    placeholder="confirm Password"
-                    className="w-full border-gray-300 dark:border-gray-600"
-                  />
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Checkbox id="remember" defaultChecked />
-                  <label
-                    htmlFor="remember"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700 dark:text-gray-300"
-                  >
-                    Remember me
-                  </label>
-                </div>
-                <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-md">
-                  Sign up
-                </Button>
-              </form>
+    {/* Right Side - Form */}
+    <div className="w-full md:w-1/2 h-full flex items-center justify-center p-8 overflow-y-auto">
+      <div className="w-full max-w-md">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 text-center">Sign up</h1>
+        <p className="text-gray-600 dark:text-gray-300 mb-6 text-center">Create your account</p>
 
-              <div className="mt-6 text-center">
-                <p className="text-gray-600 dark:text-gray-300">
-                  Already have an account?{" "}
-                  <Link href="/auth/login" className="text-indigo-600 hover:text-indigo-500 font-medium">
-                    Log in
-                  </Link>
-                </p>
-              </div>
-            </div>
+        <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+          <Input {...register("name", { required: true })} type="text" placeholder="User name" />
+          <Input {...register("phone", { required: true })} type="tel" placeholder="Phone number" />
+          <Input {...register("email", { required: true })} type="email" placeholder="Email" />
+          <Input {...register("password", { required: true })} type="password" placeholder="Password" />
+          <Input {...register("confirmPassword", { required: true })} type="password" placeholder="Confirm Password" />
+
+          <div className="flex items-center space-x-2">
+            <Checkbox id="remember" defaultChecked />
+            <label htmlFor="remember" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Remember me
+            </label>
           </div>
-        </div>
-      </div>  
-    </>
+
+          <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white">
+            Sign up
+          </Button>
+        </form>
+
+        <p className="text-center mt-4 text-gray-600 dark:text-gray-300">
+          Already have an account?{" "}
+          <Link href="/auth/login" className="text-indigo-600 hover:underline">
+            Log in
+          </Link>
+        </p>
+      </div>
+    </div>
+  </div>
+</>
   );
 }

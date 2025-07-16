@@ -8,6 +8,7 @@ import { Card } from "./ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
 import { useAuthStore } from "@/store/useAuthStore"
 import { log } from "console"
+import { useEffect, useState } from "react"
 
 interface SettingItem {
   icon: React.ElementType
@@ -19,6 +20,33 @@ interface SettingItem {
 
 export default function SettingsList() {
   const { logout } = useAuthStore();
+  interface ProfileData {
+    name?: string;
+    profile_picture?: string;
+    about?: string;
+  }
+  const [profileData, setProfileData] = useState<ProfileData>({})
+  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const userId = typeof window !== "undefined" ? localStorage.getItem("userId") : null;
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/v1/user/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        const user = data.data;
+        console.log(user)
+        setProfileData(user)
+      } catch (err) {
+        console.error("❌ Error fetching user data", err);
+      }
+    };
+
+    fetchUser()
+  }, [])
+
 
   const settings: SettingItem[] = [
     {
@@ -33,20 +61,10 @@ export default function SettingsList() {
       href: "/settings/privacy",
     },
     {
-      icon: MessageCircle,
-      label: "Chats",
-      href: "/settings/chats",
-    },
-    {
-      icon: Bell,
-      label: "Notifications",
-      href: "/settings/notifications",
+      icon: Lock,
+      label: "Change Password",
+      href: "/settings/change-password"
     },    
-    {
-      icon: UserPlus,
-      label: "Invite a friend",
-      href: "/settings/invite",
-    },
     {
   icon: LogOut,
   label: "Log out",
@@ -63,7 +81,6 @@ export default function SettingsList() {
   }
 
   ]
-
   
   return (
     <div className="h-full flex flex-col border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-black">
@@ -94,14 +111,14 @@ export default function SettingsList() {
         </div>
       </div>
 
-      <Card className="p-4 my-4 flex items-center space-x-4 cursor-pointer mx-4">
-             <Avatar>
-               <AvatarImage src="/icons/user.png" />
+      <Card className="p-4 my-4 flex items-center space-x-4 cursor-pointer mx-4 ">
+             <Avatar className="">
+               <AvatarImage className="max-h-[30px]" src= {profileData.profile_picture} />
               <AvatarFallback>JD</AvatarFallback>
             </Avatar>
             <div>
-               <p className="font-medium">Profile Name</p>
-             <p className="text-sm text-gray-500">About</p>
+               <p className="font-medium">{profileData.name}</p>
+             <p className="text-sm text-gray-500">{profileData.about}</p>
           </div>
          </Card>
       
